@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-text">
+          <h1>Catálogo de Produtos</h1>
+          <p>Gerencie seu inventário em tempo real</p>
+        </div>
+        <div class="header-stat">
+          <span id="item-count">0</span>
+          <small>itens</small>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+
+      <!-- Formulário de entrada -->
+      <aside class="sidebar">
+        <section class="card form-card">
+          <h2 class="card-title">Novo Produto</h2>
+
+          <form id="product-form" novalidate>
+            <div class="field">
+              <label for="product-name">Nome</label>
+              <input type="text" id="product-name" placeholder="Ex: Café Especial 250g" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="product-category">Categoria</label>
+              <div class="select-wrap">
+                <select id="product-category">
+                  <option value="" disabled selected>Selecionar…</option>
+                  <option value="Alimentos">Alimentos</option>
+                  <option value="Bebidas">Bebidas</option>
+                  <option value="Eletrônicos">Eletrônicos</option>
+                  <option value="Vestuário">Vestuário</option>
+                  <option value="Casa">Casa & Decoração</option>
+                  <option value="Saúde">Saúde & Bem-estar</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="product-price">Preço (R$)</label>
+              <div class="input-prefix-wrap">
+                <span class="prefix">R$</span>
+                <input type="number" id="product-price" placeholder="0,00" min="0" step="0.01" />
+              </div>
+            </div>
+
+            <p id="form-error" class="error-msg" role="alert" aria-live="polite"></p>
+
+            <button type="submit" class="btn-add">Adicionar Produto</button>
+          </form>
+        </section>
+
+        <!-- Métricas calculadas -->
+        <section class="card metrics-card">
+          <h2 class="card-title">Resumo</h2>
+          <div class="metrics">
+            <div class="metric">
+              <span class="metric-label">Total do inventário</span>
+              <span class="metric-value highlight" id="metric-total">R$ 0,00</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Preço médio</span>
+              <span class="metric-value" id="metric-avg">R$ 0,00</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Mais caro</span>
+              <span class="metric-value" id="metric-max">—</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Mais barato</span>
+              <span class="metric-value" id="metric-min">—</span>
+            </div>
+          </div>
+
+          <div class="categories" id="categories">
+            <p class="cat-empty">Nenhuma categoria ainda</p>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Lista de produtos -->
+      <main class="content">
+        <section class="card list-card">
+          <div class="list-header">
+            <h2 class="card-title">Produtos Cadastrados</h2>
+            <div class="list-controls">
+              <input type="search" id="search-input" class="search" placeholder="Buscar…" aria-label="Buscar produto" />
+              <select id="sort-select" class="sort" aria-label="Ordenar">
+                <option value="date">Mais recentes</option>
+                <option value="name">Nome A–Z</option>
+                <option value="price-asc">Menor preço</option>
+                <option value="price-desc">Maior preço</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Injeção dinâmica dos cards de produto -->
+          <div id="product-grid" class="product-grid" aria-live="polite"></div>
+
+          <div id="empty-state" class="empty-state">
+            <span class="empty-icon">🏮</span>
+            <p>Nenhum produto cadastrado ainda.</p>
+            <small>Use o formulário ao lado para começar.</small>
+          </div>
+        </section>
+      </main>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
